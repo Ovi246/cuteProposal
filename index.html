@@ -7,7 +7,6 @@
     />
     <style>
       body {
-        background: linear-gradient(to up, white, #ffc0cb, pink);
         font-family: "Indie Flower", cursive;
         display: flex;
         justify-content: center;
@@ -40,6 +39,7 @@
         flex-wrap: wrap;
       }
       .button {
+        font-family: "Indie Flower", cursive;
         width: 200px;
         height: 50px;
         background-color: #ffc0cb;
@@ -53,6 +53,7 @@
         margin: 10px;
         position: relative;
         overflow: hidden;
+        cursor: pointer;
       }
       .button:hover {
         background-color: pink;
@@ -83,6 +84,8 @@
         height: 100%;
         overflow: auto;
         background-color: rgba(0, 0, 0, 0.4);
+        animation-name: openModal;
+        animation-duration: 1s;
       }
       .modal-content {
         background-color: #fefefe;
@@ -92,6 +95,8 @@
         width: 80%;
         text-align: center;
         position: relative;
+        animation-name: modalContent;
+        animation-duration: 1s;
       }
       .close {
         position: absolute;
@@ -117,6 +122,15 @@
         border: 2px solid pink;
         border-radius: 4px;
       }
+
+      @keyframes modalContent {
+        from {
+          transform: scale(0);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
     </style>
   </head>
   <body>
@@ -134,23 +148,29 @@
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close">X</span>
+        <h2>Let's Fix a Date</h2>
         <img
           src="https://c.tenor.com/XpFCi7Fr0scAAAAC/tenor.gif"
           alt="Cute GIF"
         />
-        <h2>Let's Fix a Date</h2>
         <input type="datetime-local" id="meeting-time" />
         <button onclick="sendEmail()" class="button">Send</button>
       </div>
     </div>
     <script>
-      document.getElementById("noButton").onmouseover = function () {
+      document
+        .getElementById("noButton")
+        .addEventListener("mouseover", moveButton);
+      document
+        .getElementById("noButton")
+        .addEventListener("touchstart", moveButton);
+      function moveButton() {
         this.style.position = "absolute";
         this.style.left =
           Math.random() * (window.innerWidth - this.offsetWidth) + "px";
         this.style.top =
           Math.random() * (window.innerHeight - this.offsetHeight) + "px";
-      };
+      }
       var modal = document.getElementById("myModal");
       var btn = document.getElementById("yesButton");
       var span = document.getElementsByClassName("close")[0];
